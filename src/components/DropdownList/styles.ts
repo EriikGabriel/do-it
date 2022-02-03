@@ -44,7 +44,6 @@ export const Container = styled.div`
         height: 10px;
         border-radius: 50%;
         margin-right: 10px;
-        background-color: green;
       }
     }
 

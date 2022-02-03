@@ -2,6 +2,7 @@
 export default {
   title: "dark",
   colors: {
+    themeColor: "#000",
     red: "#e52e4d",
     blue: "#5422fc",
     green: "#33cc95",

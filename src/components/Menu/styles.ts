@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.themeColor};
   max-width: 20rem;
   height: 100vh;
   border-right: 1px solid ${(props) => props.theme.colors.shape};

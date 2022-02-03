@@ -1,22 +1,25 @@
 import styled from "styled-components";
 
-export const ContainerButton = styled.button`
+export const ContainerButton = styled.div`
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
   border: none;
-  min-width: 18rem;
-  height: 100%;
+  width: 18rem;
   margin-top: 50px;
   margin-left: 20px;
-  font-weight: bold;
   text-align: left;
   padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
 
   > div {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   > button {
