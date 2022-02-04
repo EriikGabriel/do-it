@@ -5,4 +5,5 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 20rem;
+  margin-top: 80px;
 `;

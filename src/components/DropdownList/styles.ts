@@ -7,7 +7,7 @@ export const Container = styled.div`
   border: none;
   max-width: 18rem;
   height: 200px;
-  margin-left: 10px;
+  margin-left: 20px;
 
   > button {
     background-color: transparent;

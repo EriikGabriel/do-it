@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.header`
+export const Container = styled.div`
   position: fixed;
+  left: 0;
+  top: 0;
   background-color: ${(props) => props.theme.colors.themeColor};
-  max-width: 20rem;
+  width: 20rem;
   height: 100vh;
   border-right: 1px solid ${(props) => props.theme.colors.shape};
   overflow-x: hidden;

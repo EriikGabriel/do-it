@@ -8,7 +8,7 @@ export const ContainerButton = styled.div`
   border: none;
   width: 18rem;
   margin-top: 50px;
-  margin-left: 10px;
+  margin-left: 20px;
   margin-right: 5px;
   text-align: left;
   padding: 10px;
