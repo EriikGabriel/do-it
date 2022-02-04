@@ -7,7 +7,7 @@ export const Container = styled.div`
   border: none;
   max-width: 18rem;
   height: 200px;
-  margin-left: 20px;
+  margin-left: 10px;
 
   > button {
     background-color: transparent;
@@ -20,10 +20,6 @@ export const Container = styled.div`
     padding: 10px;
     border-radius: 5px;
     transition: 0.2s;
-
-    &:nth-child(1) {
-      background-color: ${(props) => props.theme.colors.background};
-    }
 
     &:hover {
       background-color: ${(props) => props.theme.colors.background};

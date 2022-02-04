@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
+  position: fixed;
   background-color: ${(props) => props.theme.colors.themeColor};
   max-width: 20rem;
   height: 100vh;

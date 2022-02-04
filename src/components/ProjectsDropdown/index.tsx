@@ -29,8 +29,6 @@ export function ProjectsDropdown() {
       color,
     });
 
-    console.log("color => ", color);
-
     setIsOpen(false);
   }
 
