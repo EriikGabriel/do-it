@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEllipsisH } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { ProjectContext } from "../../contexts/ProjectContext";
 import { database } from "../../services/firebase";
 import { Container } from "./styles";
 
@@ -20,7 +20,7 @@ type ProjectsType = {
 
 export function DropdownList() {
   const [projects, setProjects] = useState<ProjectsType[]>([]);
-  const navigate = useNavigate();
+  const { setNewProjectId } = useContext(ProjectContext);
 
   useEffect(() => {
     const projectsRef = database.ref("projects");
@@ -46,9 +46,9 @@ export function DropdownList() {
   }, []);
 
   function handleOpenTodoList(e: React.MouseEvent<HTMLButtonElement>) {
-    const listId = (e.currentTarget as HTMLButtonElement).dataset.id;
+    const listId = (e.currentTarget as HTMLButtonElement).dataset.id ?? "";
 
-    navigate(`/${listId}`);
+    setNewProjectId(listId);
   }
 
   return (
