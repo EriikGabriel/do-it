@@ -23,7 +23,8 @@ export function DropdownList() {
   const { setNewProjectId } = useContext(ProjectContext);
 
   useEffect(() => {
-    const projectsRef = database.ref("projects");
+    const firebaseUserKey = localStorage.getItem("@doit:token");
+    const projectsRef = database.ref(`users/${firebaseUserKey}/projects`);
 
     projectsRef.on("value", (project) => {
       const databaseProject = project.val() as FirebaseProjects;

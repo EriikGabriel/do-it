@@ -22,11 +22,16 @@ export function ProjectsDropdown() {
   async function handleCreateNewProject(e: FormEvent) {
     e.preventDefault();
 
-    const projectsRef = database.ref("projects");
+    const firebaseUserKey = localStorage.getItem("@doit:token");
+    const projectsRef = database.ref(`users/${firebaseUserKey}/projects`);
 
-    await projectsRef.push({
-      name,
-      color,
+    const projectUid = new Date().getTime().toString();
+
+    await projectsRef.update({
+      [projectUid]: {
+        name,
+        color,
+      },
     });
 
     setIsOpen(false);

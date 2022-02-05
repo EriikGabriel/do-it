@@ -1,6 +1,7 @@
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { database } from "../../services/firebase";
 import { Container } from "./styles";
 
 export function Login() {
@@ -12,7 +13,9 @@ export function Login() {
       await signInWithGoogle();
     }
 
-    localStorage.setItem("@doit:token", user?.id ?? "");
+    const userRef = await database.ref("users").push("");
+
+    localStorage.setItem("@doit:token", userRef.key ?? "");
 
     navigate("/");
   }
