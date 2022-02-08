@@ -52,7 +52,7 @@ export function ProjectsDropdown() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
-        className="react-modal-content"
+        className="react-modal-content new-project-modal"
         overlayClassName="react-modal-overlay">
         <div className="title">Adicionar projeto</div>
         <form onSubmit={handleCreateNewProject}>

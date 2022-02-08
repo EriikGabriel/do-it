@@ -55,22 +55,7 @@ export default createGlobalStyle`
         justify-content: center;
     }
 
-    .react-modal-content {
-        width: 30vw;
-        min-height: 30vh;
-        background-color: ${(props) => props.theme.colors.themeColor};
-        color: ${(props) => props.theme.colors.text_body};
-        border-radius: 0.25rem;
-
-        div.title {
-            background-color: ${(props) => props.theme.colors.background};
-            padding: 1rem;
-            border-radius: 0.25rem 0.25rem 0 0;
-            border-bottom: 1px solid ${(props) => props.theme.colors.shape};
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
+    .new-project-modal {
         form {
             display: flex;
             flex-direction: column;
@@ -84,14 +69,6 @@ export default createGlobalStyle`
                 label {
                     font-size: 0.9rem;
                     font-weight: bold;
-                }
-                
-                input[type="text"] {
-                    height: 30px;
-                    border-radius: 0.25rem;
-                    padding: 10px;
-                    border: 1px solid ${(props) => props.theme.colors.shape};
-                    background-color: ${(props) => props.theme.colors.background};
                 }
 
                 input[type="color"] {
@@ -111,7 +88,6 @@ export default createGlobalStyle`
                 
                 input[type="color"]::-webkit-color-swatch {
                     border: none;
-                    
                     border-radius: 10rem;
                 }
             }
@@ -138,5 +114,49 @@ export default createGlobalStyle`
                 }
             }
         }
-    } 
+    }
+
+    .react-modal-content {
+        width: 30vw;
+        min-height: 30vh;
+        background-color: ${(props) => props.theme.colors.themeColor};
+        color: ${(props) => props.theme.colors.text_body};
+        border-radius: 0.25rem;
+
+        div.title {
+            background-color: ${(props) => props.theme.colors.background};
+            padding: 1rem;
+            border-radius: 0.25rem 0.25rem 0 0;
+            border-bottom: 1px solid ${(props) => props.theme.colors.shape};
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        form {
+            input[type="text"] {
+                height: 30px;
+                border-radius: 0.25rem;
+                padding: 10px;
+                border: 1px solid ${(props) => props.theme.colors.shape};
+                background-color: ${(props) => props.theme.colors.background};
+            }
+        }
+    }
+    
+
+    .tooltip {
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0.35rem !important;
+        pointer-events: auto !important;
+        border: 1px solid ${(props) => props.theme.colors.shape};
+        -webkit-box-shadow: -1px 6px 10px -2px rgba(0, 0, 0, 0.2);
+        box-shadow: -1px 6px 10px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    .tooltip-wrapper {
+        background-color: transparent;
+        padding: 10px;
+    }
+    
 `;

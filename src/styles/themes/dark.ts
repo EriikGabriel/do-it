@@ -16,5 +16,6 @@ export default {
 
     background: "#2d2d2e",
     shape: "#000000",
+    shape_dark: "#adadad",
   },
 };

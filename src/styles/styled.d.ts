@@ -18,6 +18,7 @@ declare module "styled-components" {
 
       background: string;
       shape: string;
+      shape_dark: string;
     };
   }
 }
