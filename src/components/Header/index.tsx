@@ -18,7 +18,7 @@ export function Header() {
           <VscBell size={25} />
         </button>
         <div>
-          <img src={user?.avatar} alt="Profile picture" />
+          <img src={user?.avatar} alt="Profile picture" referrerPolicy="no-referrer" />
         </div>
       </div>
     </Container>

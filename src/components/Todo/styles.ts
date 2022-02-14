@@ -1,3 +1,5 @@
+import { darken } from "polished";
+import Modal from "react-modal";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -27,12 +29,6 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
         transition: 0.3s;
-
-        &:hover {
-          div {
-            filter: opacity(0.7);
-          }
-        }
 
         div {
           width: 20px;
@@ -89,29 +85,38 @@ export const Container = styled.div`
         align-items: center;
         width: 25px;
         height: 25px;
+
+        svg {
+          fill: ${(props) => darken(0.1, props.theme.colors.shape_dark)};
+        }
+
+        &:hover svg {
+          fill: ${(props) => props.theme.colors.shape_dark};
+        }
+
+        &:last-child:hover svg {
+          fill: ${(props) => props.theme.colors.red};
+        }
       }
     }
   }
+`;
 
-  > .form-action {
-    display: flex;
-    justify-content: left;
-    gap: 20px;
-    padding: 10px;
-    border-radius: 0 0 0.25rem 0.25rem;
+export const DeleteTodoModal = styled(Modal)`
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -moz-user-select: none;
 
-    button {
-      height: 35px;
-      padding-left: 10px;
-      padding-right: 10px;
-      border: 1px solid ${(props) => props.theme.colors.shape};
-      background-color: ${(props) => props.theme.colors.shape};
-      border-radius: 0.25rem;
+  div:nth-child(2) {
+    padding: 20px;
+
+    small {
+      font-size: 0.7rem;
     }
 
-    button[type="submit"] {
-      background-color: ${(props) => props.theme.colors.primary};
-      color: #fff;
+    p {
+      font-size: 0.9rem;
     }
   }
 `;

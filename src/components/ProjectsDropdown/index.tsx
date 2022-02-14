@@ -1,4 +1,4 @@
-import { ContainerButton } from "./styles";
+import { ContainerButton, CreateProjectModal } from "./styles";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { DropdownList } from "../DropdownList";
@@ -49,12 +49,12 @@ export function ProjectsDropdown() {
         </button>
       </ContainerButton>
       {active && <DropdownList />}
-      <Modal
+      <CreateProjectModal
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
-        className="react-modal-content new-project-modal"
+        className="react-modal-content"
         overlayClassName="react-modal-overlay">
-        <div className="title">Adicionar projeto</div>
+        <div className="header">Adicionar projeto</div>
         <form onSubmit={handleCreateNewProject}>
           <div>
             <label htmlFor="name">Nome</label>
@@ -77,7 +77,7 @@ export function ProjectsDropdown() {
             <input type="color" name="color" onChange={(e) => setColor(e.target.value)} />
           </div>
 
-          <div className="buttons">
+          <div className="footer">
             <button type="button" onClick={() => setIsOpen(false)}>
               Cancelar
             </button>
@@ -86,7 +86,7 @@ export function ProjectsDropdown() {
             </button>
           </div>
         </form>
-      </Modal>
+      </CreateProjectModal>
     </>
   );
 }

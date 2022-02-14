@@ -1,3 +1,4 @@
+import Modal from "react-modal";
 import styled from "styled-components";
 
 export const ContainerButton = styled.div`
@@ -35,6 +36,44 @@ export const ContainerButton = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.colors.background};
       filter: brightness(0.9);
+    }
+  }
+`;
+
+export const CreateProjectModal = styled(Modal)`
+  form {
+    display: flex;
+    flex-direction: column;
+
+    div:not(:last-child) {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+
+      label {
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      input[type="color"] {
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: none;
+        width: 32px;
+        height: 32px;
+      }
+
+      input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+        background-color: transparent;
+        border-radius: 10rem;
+      }
+
+      input[type="color"]::-webkit-color-swatch {
+        border: none;
+        border-radius: 10rem;
+      }
     }
   }
 `;

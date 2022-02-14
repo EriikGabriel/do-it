@@ -4,7 +4,7 @@ import { BsPlusCircle, BsPlusCircleFill } from "react-icons/bs";
 import { database } from "../../../services/firebase";
 import { Container } from "./styles";
 import { ThemeContext } from "styled-components";
-import { NewTodoBox } from "../../../components/NewTodoBox";
+import { TodoBox } from "../../../components/TodoBox";
 import { Todo } from "../../../components/Todo";
 
 type FirebaseTodos = Record<
@@ -39,8 +39,10 @@ export function TodoList() {
 
   const [isHover, setIsHover] = useState(false);
   const [isNewTodo, setIsNewTodo] = useState(false);
+  const [todoBoxType, setTodoBoxType] = useState("");
 
   const [todos, setTodos] = useState<TodoType[]>([]);
+  const [todoEditId, setTodoEditId] = useState("");
 
   useEffect(() => {
     const firebaseUserKey = localStorage.getItem("@doit:token");
@@ -79,25 +81,33 @@ export function TodoList() {
       <Container>
         <h1>{projectName}</h1>
         <div>
-          {todos.map(({ priority, description, tag, dueDate, id }) => (
-            <Todo
-              priority={priority}
-              description={description}
-              tagName={tag.name}
-              tagColor={tag.color}
-              dueDate={dueDate}
-              key={id}
-            />
-          ))}
+          {todos.map(({ priority, description, tag, dueDate, id }) => {
+            return todoBoxType === "edit" && todoEditId === id ? (
+              <TodoBox setTodoBoxType={setTodoBoxType} todoId={todoEditId} key={id} />
+            ) : (
+              <Todo
+                priority={priority}
+                description={description}
+                tagName={tag.name}
+                tagColor={tag.color}
+                dueDate={dueDate}
+                key={id}
+                todoId={id}
+                setEditId={setTodoEditId}
+                setTodoBoxType={setTodoBoxType}
+              />
+            );
+          })}
         </div>
-        {isNewTodo ? (
-          <NewTodoBox newTodoBox={setIsNewTodo} />
+        {isNewTodo}
+        {todoBoxType === "create" ? (
+          <TodoBox setTodoBoxType={setTodoBoxType} />
         ) : (
           <button
             type="button"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            onClick={() => setIsNewTodo(true)}>
+            onClick={() => setTodoBoxType("create")}>
             {isHover ? (
               <BsPlusCircleFill size={20} fill={colors.primary} />
             ) : (

@@ -1,3 +1,4 @@
+import { darken, lighten } from "polished";
 import styled from "styled-components";
 
 export const Container = styled.form`
@@ -27,17 +28,12 @@ export const Container = styled.form`
         align-items: center;
         transition: 0.3s;
 
-        &:hover {
-          div {
-            filter: opacity(0.7);
-          }
-        }
-
         div {
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          background-color: ${(props) => props.theme.colors.shape_dark};
+          border: 1px solid ${(props) => darken(0.2, props.theme.colors.shape_dark)};
+          background-color: ${(props) => lighten(0.15, props.theme.colors.shape_dark)};
         }
       }
 
@@ -77,18 +73,6 @@ export const Container = styled.form`
       padding: 3px;
       filter: opacity(0.7);
       cursor: pointer;
-    }
-
-    .actions {
-      button {
-        background-color: transparent;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 25px;
-        height: 25px;
-      }
     }
   }
 

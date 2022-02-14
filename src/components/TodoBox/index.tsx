@@ -6,9 +6,11 @@ import { ThemeContext } from "styled-components";
 import { Container } from "./styles";
 import { database } from "../../services/firebase";
 import { ProjectContext } from "../../contexts/ProjectContext";
+import { darken, lighten } from "polished";
 
-type NewTodoBoxProps = {
-  newTodoBox: Dispatch<SetStateAction<boolean>>;
+type TodoBoxProps = {
+  setTodoBoxType: Dispatch<SetStateAction<string>>;
+  todoId?: string;
 };
 
 type FirebaseTags = Record<
@@ -24,7 +26,14 @@ type TagsType = {
   color: string;
 };
 
-export function NewTodoBox(props: NewTodoBoxProps) {
+type TodoType = {
+  priority: string;
+  description: string;
+  tag: TagsType;
+  dueDate: string;
+};
+
+export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
   const { colors } = useContext(ThemeContext);
 
   const [newTag, setNewTag] = useState("");
@@ -36,8 +45,7 @@ export function NewTodoBox(props: NewTodoBoxProps) {
 
   const [priority, setPriority] = useState("p4");
   const [description, setDescription] = useState("");
-
-  const [dueDate, setDueDate] = useState<Date | string>("");
+  const [dueDate, setDueDate] = useState<string>("");
 
   const { projectId } = useContext(ProjectContext);
 
@@ -65,12 +73,40 @@ export function NewTodoBox(props: NewTodoBoxProps) {
     });
   }, []);
 
+  useEffect(() => {
+    if (todoId) {
+      const firebaseUserKey = localStorage.getItem("@doit:token");
+      const todoRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos/${todoId}`);
+
+      todoRef.once("value", (todo) => {
+        const databaseTodo = todo.val() as TodoType;
+        const firebaseTodo = databaseTodo ?? {};
+
+        setPriority(firebaseTodo.priority);
+        setDescription(firebaseTodo.description);
+        setTagName(firebaseTodo.tag.name);
+        setTagColor(firebaseTodo.tag.color);
+        setDueDate(firebaseTodo.dueDate);
+      });
+    }
+  }, [projectId, todoId]);
+
+  useEffect(() => {
+    const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;
+    const options = [colors.red, colors.green, colors.blue, colors.shape_dark];
+
+    const priorityIndex = Number(priority[1]) - 1;
+    priorityColorElement.style.backgroundColor = lighten(0.15, options[priorityIndex]);
+    priorityColorElement.style.borderColor = darken(0.2, options[priorityIndex]);
+  });
+
   function handleSelectPriority(e: React.MouseEvent) {
+    const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;
     const options = [colors.red, colors.green, colors.blue, colors.shape_dark];
     const optionValue = Number((e.currentTarget as HTMLButtonElement).value) - 1;
-    const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;
 
-    priorityColorElement.style.backgroundColor = options[optionValue];
+    priorityColorElement.style.backgroundColor = lighten(0.15, options[optionValue]);
+    priorityColorElement.style.borderColor = darken(0.2, options[optionValue]);
     setPriority(`p${optionValue + 1}`);
   }
 
@@ -135,11 +171,30 @@ export function NewTodoBox(props: NewTodoBoxProps) {
       dueDate,
     });
 
-    props.newTodoBox(false);
+    setTodoBoxType("");
+  }
+
+  function handleUpdateTodo(e: FormEvent) {
+    e.preventDefault();
+
+    const firebaseUserKey = localStorage.getItem("@doit:token");
+    const todoRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos/${todoId}`);
+
+    todoRef.update({
+      priority,
+      description,
+      tag: {
+        name: tagName,
+        color: tagColor,
+      },
+      dueDate,
+    });
+
+    setTodoBoxType("");
   }
 
   return (
-    <Container onSubmit={handleCreateNewTodo}>
+    <Container onSubmit={todoId ? handleUpdateTodo : handleCreateNewTodo}>
       <div>
         <div>
           <button
@@ -155,8 +210,14 @@ export function NewTodoBox(props: NewTodoBoxProps) {
             type="text"
             id="description-input"
             placeholder="Descreva o que quer fazer..."
+            value={description}
             autoComplete="off"
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => {
+              const button = document.querySelector("button[type='submit']");
+              if (e.target.value !== "") button?.removeAttribute("disabled");
+              else button?.setAttribute("disabled", "");
+              setDescription(e.target.value);
+            }}
             required
           />
         </div>
@@ -172,11 +233,17 @@ export function NewTodoBox(props: NewTodoBoxProps) {
           }}>
           {tagName}
         </button>
-        <input type="datetime-local" onChange={(e) => setDueDate(e.target.value)} required />
+        <input type="datetime-local" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
       </div>
       <div className="form-action">
-        <button type="submit">Adicionar tarefa</button>
-        <button type="button" onClick={() => props.newTodoBox(false)}>
+        {todoId ? (
+          <button type="submit">Salvar</button>
+        ) : (
+          <button type="submit" disabled>
+            Adicionar tarefa
+          </button>
+        )}
+        <button type="button" onClick={() => setTodoBoxType("")}>
           Cancelar
         </button>
       </div>
