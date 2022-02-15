@@ -6,6 +6,7 @@ import { Container } from "./styles";
 import { ThemeContext } from "styled-components";
 import { TodoBox } from "../../../components/TodoBox";
 import { Todo } from "../../../components/Todo";
+import TodoSvg from "../../../assets/todo_svg.svg";
 
 type FirebaseTodos = Record<
   string,
@@ -38,7 +39,6 @@ export function TodoList() {
   const [projectName, setProjectName] = useState("");
 
   const [isHover, setIsHover] = useState(false);
-  const [isNewTodo, setIsNewTodo] = useState(false);
   const [todoBoxType, setTodoBoxType] = useState("");
 
   const [todos, setTodos] = useState<TodoType[]>([]);
@@ -99,7 +99,6 @@ export function TodoList() {
             );
           })}
         </div>
-        {isNewTodo}
         {todoBoxType === "create" ? (
           <TodoBox setTodoBoxType={setTodoBoxType} />
         ) : (
@@ -115,6 +114,15 @@ export function TodoList() {
             )}
             Adicionar tarefa
           </button>
+        )}
+        {todos.length === 0 && (
+          <div className="todo-empty">
+            <img src={TodoSvg} alt="Todo illustration" />
+            <div>
+              <p>Mantenha suas tarefas organizadas em projetos</p>
+              <small>Adicione suas primeiras tarefas para começar!</small>
+            </div>
+          </div>
         )}
       </Container>
     </>

@@ -58,6 +58,10 @@ export const Container = styled.div`
     }
   }
 
+  > small {
+    margin-left: 1rem;
+  }
+
   .more-options-tooltip {
     opacity: 1 !important;
 

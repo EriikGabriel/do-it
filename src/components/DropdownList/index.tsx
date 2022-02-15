@@ -128,21 +128,26 @@ export function DropdownList() {
     });
 
     setDeleteProjectModalIsOpen(false);
+    setNewProjectId("");
   }
 
   return (
     <Container>
-      {projects.map(({ id, name, color }) => (
-        <button type="button" data-id={id} key={id} onClick={handleOpenTodoList}>
-          <div>
-            <div className="project-color" style={{ backgroundColor: color }}></div>
-            {name}
-          </div>
-          <div data-tip={id} data-for="more-options" data-event="click">
-            <FaEllipsisH size={15} />
-          </div>
-        </button>
-      ))}
+      {projects.length !== 0 ? (
+        projects.map(({ id, name, color }) => (
+          <button type="button" data-id={id} key={id} onClick={handleOpenTodoList}>
+            <div>
+              <div className="project-color" style={{ backgroundColor: color }}></div>
+              {name}
+            </div>
+            <div data-tip={id} data-for="more-options" data-event="click">
+              <FaEllipsisH size={15} />
+            </div>
+          </button>
+        ))
+      ) : (
+        <small>Você não tem projetos</small>
+      )}
 
       <ReactTooltip
         id="more-options"

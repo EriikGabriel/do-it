@@ -8,7 +8,7 @@ export const ContainerButton = styled.div`
   justify-content: space-between;
   border: none;
   width: 18rem;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-left: 20px;
   margin-right: 5px;
   text-align: left;

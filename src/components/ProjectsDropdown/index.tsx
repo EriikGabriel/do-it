@@ -2,7 +2,7 @@ import { ContainerButton, CreateProjectModal } from "./styles";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { DropdownList } from "../DropdownList";
-import React, { FormEvent, HtmlHTMLAttributes, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { database } from "../../services/firebase";
 import Modal from "react-modal";
 
