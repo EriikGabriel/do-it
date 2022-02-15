@@ -2,7 +2,7 @@ import { ContainerButton, CreateProjectModal } from "./styles";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { DropdownList } from "../DropdownList";
-import { FormEvent, useState } from "react";
+import React, { FormEvent, HtmlHTMLAttributes, useState } from "react";
 import { database } from "../../services/firebase";
 import Modal from "react-modal";
 
@@ -15,7 +15,18 @@ export function ProjectsDropdown() {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
-  function handleToggleDropdown() {
+  function handleToggleDropdown(e: React.MouseEvent) {
+    const nodeName = (e.target as HTMLElement).nodeName.toLocaleUpperCase();
+
+    if (nodeName === "BUTTON") return;
+    else if (nodeName === "SVG") {
+      const parentNodeName = (e.target as HTMLElement).parentNode?.nodeName.toLocaleUpperCase();
+      if (parentNodeName === "BUTTON") return;
+    } else if (nodeName === "PATH") {
+      const parentNodeName = (e.target as HTMLElement).parentNode?.parentElement?.nodeName.toLocaleUpperCase();
+      if (parentNodeName === "BUTTON") return;
+    }
+
     active ? setActive(false) : setActive(true);
   }
 
@@ -39,7 +50,7 @@ export function ProjectsDropdown() {
 
   return (
     <>
-      <ContainerButton onClick={handleToggleDropdown}>
+      <ContainerButton onClick={(e) => handleToggleDropdown(e)}>
         <div>
           {active ? <FaCaretDown size={20} /> : <FaCaretRight size={20} />}
           Projetos
