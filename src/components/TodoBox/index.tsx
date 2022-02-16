@@ -11,6 +11,7 @@ import { darken, lighten } from "polished";
 type TodoBoxProps = {
   setTodoBoxType: Dispatch<SetStateAction<string>>;
   todoId?: string;
+  todoProjectId?: string;
 };
 
 type FirebaseTags = Record<
@@ -33,7 +34,7 @@ type TodoType = {
   dueDate: string;
 };
 
-export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
+export function TodoBox({ setTodoBoxType, todoId, todoProjectId }: TodoBoxProps) {
   const { colors } = useContext(ThemeContext);
 
   const [newTag, setNewTag] = useState("");
@@ -76,7 +77,9 @@ export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
   useEffect(() => {
     if (todoId) {
       const firebaseUserKey = localStorage.getItem("@doit:token");
-      const todoRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos/${todoId}`);
+      const todoRef = database.ref(
+        `users/${firebaseUserKey}/projects/${!projectId ? todoProjectId : projectId}/todos/${todoId}`
+      );
 
       todoRef.once("value", (todo) => {
         const databaseTodo = todo.val() as TodoType;
@@ -89,12 +92,11 @@ export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
         setDueDate(firebaseTodo.dueDate);
       });
     }
-  }, [projectId, todoId]);
+  }, [projectId, todoId, todoProjectId]);
 
   useEffect(() => {
     const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;
     const options = [colors.red, colors.green, colors.blue, colors.shape_dark];
-
     const priorityIndex = Number(priority[1]) - 1;
     priorityColorElement.style.backgroundColor = lighten(0.15, options[priorityIndex]);
     priorityColorElement.style.borderColor = darken(0.2, options[priorityIndex]);
@@ -159,7 +161,7 @@ export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
     e.preventDefault();
 
     const firebaseUserKey = localStorage.getItem("@doit:token");
-    const todosRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos`);
+    const todosRef = database.ref(`users/${firebaseUserKey}/projects/${!projectId ? todoProjectId : projectId}/todos`);
 
     todosRef.push({
       priority,
@@ -178,7 +180,9 @@ export function TodoBox({ setTodoBoxType, todoId }: TodoBoxProps) {
     e.preventDefault();
 
     const firebaseUserKey = localStorage.getItem("@doit:token");
-    const todoRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos/${todoId}`);
+    const todoRef = database.ref(
+      `users/${firebaseUserKey}/projects/${!projectId ? todoProjectId : projectId}/todos/${todoId}`
+    );
 
     todoRef.update({
       priority,

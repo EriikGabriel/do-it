@@ -6,7 +6,7 @@ import { Container } from "./styles";
 import { ThemeContext } from "styled-components";
 import { TodoBox } from "../../../components/TodoBox";
 import { Todo } from "../../../components/Todo";
-import TodoSvg from "../../../assets/todo_svg.svg";
+import TodoSvg from "../../../assets/todo.svg";
 
 type FirebaseTodos = Record<
   string,

@@ -6,10 +6,13 @@ import { Container, DeleteTodoModal } from "./styles";
 import { database } from "../../services/firebase";
 import { ProjectContext } from "../../contexts/ProjectContext";
 import { BiInfoCircle, BiX } from "react-icons/bi";
-import Modal from "react-modal";
+import { format, getYear } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict/index";
 
 type TodoProps = {
   todoId: string;
+  todoProjectId?: string;
   priority: string;
   description: string;
   tagName: string;
@@ -21,6 +24,7 @@ type TodoProps = {
 
 export function Todo({
   todoId,
+  todoProjectId,
   priority,
   description,
   tagName,
@@ -36,17 +40,57 @@ export function Todo({
   const [tagVisibility, setTagVisibility] = useState<VisibilityState>("hidden");
 
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const date = new Date(dueDate);
+    const [value, unity] = formatDistanceToNowStrict(date, { locale: ptBR }).split(" ");
+
+    switch (unity) {
+      case "segundo":
+      case "segundos":
+      case "minuto":
+      case "minutos":
+      case "hora":
+      case "horas":
+        setFormattedDate("Hoje");
+        break;
+      case "dia":
+        setFormattedDate("Amanhã");
+        break;
+      case "dias":
+        if (Number(value) > 7) setFormattedDate(format(date, "MMM d 'às' H:mm", { locale: ptBR }));
+        else setFormattedDate(format(date, "EEE", { locale: ptBR }));
+        break;
+      case "ano":
+      case "anos":
+        setFormattedDate(format(date, "MMM d yyyy 'às' H:mm", { locale: ptBR }));
+        break;
+      default:
+        if (getYear(date) !== getYear(new Date())) {
+          setFormattedDate(format(date, "MMM d yyyy 'às' H:mm", { locale: ptBR }));
+        } else setFormattedDate(format(date, "MMM d 'às' H:mm", { locale: ptBR }));
+        break;
+    }
+
+    return () => setFormattedDate("");
+  }, [dueDate]);
 
   useEffect(() => {
     const priorityColorsOptions = [colors.red, colors.green, colors.blue, colors.shape_dark];
     setPriorityColor(priorityColorsOptions[Number(priority[1]) - 1]);
 
     tagName !== "Definir tag" && setTagVisibility("visible");
+
+    return () => setPriorityColor("#000000");
   }, [colors.red, colors.green, colors.blue, colors.shape_dark, priority, tagName]);
 
   function handleDeleteTodo() {
     const firebaseUserKey = localStorage.getItem("@doit:token");
-    const todoRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos/${todoId}`);
+
+    const todoRef = database.ref(
+      `users/${firebaseUserKey}/projects/${!projectId ? todoProjectId : projectId}/todos/${todoId}`
+    );
 
     todoRef.remove((error) => {
       if (error) throw new Error("Could not delete todo");
@@ -77,22 +121,13 @@ export function Todo({
             }}>
             {tagName}
           </button>
-          <p>
-            {new Intl.DateTimeFormat("pt-br", {
-              weekday: "short",
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            }).format(new Date(dueDate))}
-          </p>
+          <p>{formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1)}</p>
           <div className="actions">
             <button
               type="button"
               onClick={() => {
-                setEditId(todoId);
-                setTodoBoxType("edit");
+                if (setEditId) setEditId(todoId);
+                if (setTodoBoxType) setTodoBoxType("edit");
               }}>
               <RiEditLine size={20} />
             </button>

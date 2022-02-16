@@ -67,9 +67,10 @@ export const Container = styled.div`
       background-color: transparent;
       display: flex;
       align-items: center;
-      justify-content: center;
+      margin-left: 3rem;
+      text-align: start;
       font-size: 0.85rem;
-      width: 15rem;
+      width: 10rem;
       border-radius: 0.25rem;
       padding: 3px;
       filter: opacity(0.7);
