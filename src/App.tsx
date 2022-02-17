@@ -6,20 +6,23 @@ import { ProjectContextProvider } from "./contexts/ProjectContext";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import GlobalStyle from "./styles/global";
 import light from "./styles/themes/light";
+import { MenuContextProvider } from "./contexts/MenuContext";
 
 function App() {
   return (
     <ThemeProvider theme={light}>
       <GlobalStyle />
       <AuthContextProvider>
-        <ProjectContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </BrowserRouter>
-        </ProjectContextProvider>
+        <MenuContextProvider>
+          <ProjectContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </BrowserRouter>
+          </ProjectContextProvider>
+        </MenuContextProvider>
       </AuthContextProvider>
     </ThemeProvider>
   );

@@ -8,6 +8,7 @@ import { Container, DeleteProjectModal } from "./styles";
 import { CreateProjectModal } from "../ProjectsDropdown/styles";
 import ReactTooltip from "react-tooltip";
 import { BiInfoCircle, BiX } from "react-icons/bi";
+import { MenuContext } from "../../contexts/MenuContext";
 
 type FirebaseProjects = Record<
   string,
@@ -25,6 +26,7 @@ type ProjectsType = {
 
 export function DropdownList() {
   const { setNewProjectId } = useContext(ProjectContext);
+  const { setNewOptionsName } = useContext(MenuContext);
   const { colors } = useContext(ThemeContext);
 
   const [projects, setProjects] = useState<ProjectsType[]>([]);
@@ -68,6 +70,7 @@ export function DropdownList() {
     const listId = (e.currentTarget as HTMLButtonElement).dataset.id ?? "";
 
     if (nodeName === "DIV" || nodeName === "BUTTON") {
+      setNewOptionsName("todo");
       setNewProjectId(listId);
     }
   }
@@ -128,6 +131,7 @@ export function DropdownList() {
     });
 
     setDeleteProjectModalIsOpen(false);
+    setNewOptionsName("today");
     setNewProjectId("");
   }
 
