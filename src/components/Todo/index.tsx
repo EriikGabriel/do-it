@@ -6,6 +6,7 @@ import { Container, DeleteTodoModal } from "./styles";
 import { database } from "../../services/firebase";
 import { ProjectContext } from "../../contexts/ProjectContext";
 import { BiInfoCircle, BiX } from "react-icons/bi";
+import { AiOutlineCheck } from "react-icons/ai";
 import { format, getYear } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict/index";
@@ -41,6 +42,8 @@ export function Todo({
 
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [formattedDate, setFormattedDate] = useState("");
+
+  const [checkIsHover, setCheckIsHover] = useState(false);
 
   useEffect(() => {
     const date = new Date(dueDate);
@@ -87,7 +90,6 @@ export function Todo({
 
   function handleDeleteTodo() {
     const firebaseUserKey = localStorage.getItem("@doit:token");
-
     const todoRef = database.ref(
       `users/${firebaseUserKey}/projects/${!projectId ? todoProjectId : projectId}/todos/${todoId}`
     );
@@ -107,7 +109,12 @@ export function Todo({
                 style={{
                   backgroundColor: lighten(0.15, priorityColor),
                   border: `1px solid ${darken(0.2, priorityColor)}`,
-                }}></div>
+                }}
+                onMouseEnter={() => setCheckIsHover(true)}
+                onMouseLeave={() => setCheckIsHover(false)}
+                onClick={handleDeleteTodo}>
+                {checkIsHover && <AiOutlineCheck size={12} fill={darken(0.2, priorityColor)} />}
+              </div>
             </button>
             <p>{description}</p>
           </div>

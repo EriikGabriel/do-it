@@ -32,6 +32,9 @@ export const Container = styled.div`
         transition: 0.3s;
 
         div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           width: 20px;
           height: 20px;
           border-radius: 50%;
