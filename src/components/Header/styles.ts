@@ -54,7 +54,7 @@ export const Container = styled.header`
       background: none;
     }
 
-    div {
+    div.border-account {
       padding: 3px;
       background: linear-gradient(100.67deg, #f3477a 3.14%, #91bdec 100%);
       border-radius: 50%;
@@ -65,6 +65,63 @@ export const Container = styled.header`
         height: 30px;
         border-radius: 50%;
         cursor: pointer;
+      }
+    }
+  }
+
+  .account-tooltip {
+    opacity: 1 !important;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      input[type="search"]::-webkit-search-decoration,
+      input[type="search"]::-webkit-search-cancel-button,
+      input[type="search"]::-webkit-search-results-button,
+      input[type="search"]::-webkit-search-results-decoration {
+        display: none;
+      }
+
+      input[type="search"] {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1.5px solid ${(props) => props.theme.colors.shape};
+
+        &::placeholder {
+          text-align: center;
+        }
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+        width: 10rem;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        p {
+          width: 100px;
+          text-align: left;
+        }
+
+        &:hover {
+          color: ${(props) => props.theme.colors.red};
+        }
       }
     }
   }

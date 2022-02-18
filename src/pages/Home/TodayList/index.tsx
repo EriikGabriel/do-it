@@ -46,45 +46,47 @@ export function TodayList() {
     const projectsRef = database.ref(`users/${firebaseUserKey}/projects`);
 
     projectsRef.on("value", (project) => {
-      const projectsIds = Object.keys(project.val());
-      let concatParsedTodayTodos: TodoType[] = [];
+      if (project.val()) {
+        const projectsIds = Object.keys(project.val());
+        let concatParsedTodayTodos: TodoType[] = [];
 
-      projectsIds.forEach((projectId) => {
-        const todosRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos`);
+        projectsIds.forEach((projectId) => {
+          const todosRef = database.ref(`users/${firebaseUserKey}/projects/${projectId}/todos`);
 
-        todosRef.on("value", (todo) => {
-          const databaseTodo = todo.val() as FirebaseTodos;
-          const firebaseTodo = databaseTodo ?? {};
+          todosRef.on("value", (todo) => {
+            const databaseTodo = todo.val() as FirebaseTodos;
+            const firebaseTodo = databaseTodo ?? {};
 
-          const parsedTodayTodos = Object.entries(firebaseTodo)
-            .map(([key, value]) => {
-              return {
-                id: key,
-                todoProjectId: projectId,
-                priority: value.priority,
-                description: value.description,
-                tag: {
-                  name: value.tag.name,
-                  color: value.tag.color,
-                },
-                dueDate: value.dueDate,
-              };
-            })
-            .filter((todo) => {
-              const [, unity] = formatDistanceToNowStrict(new Date(todo.dueDate), { locale: ptBR }).split(" ");
-              const todayUnits = ["segundo", "minuto", "hora"];
-              if (
-                todayUnits.some((tUnity) => tUnity === unity) ||
-                todayUnits.some((tUnity) => `${tUnity}s` === unity)
-              ) {
-                return todo;
-              } else return null;
-            });
+            const parsedTodayTodos = Object.entries(firebaseTodo)
+              .map(([key, value]) => {
+                return {
+                  id: key,
+                  todoProjectId: projectId,
+                  priority: value.priority,
+                  description: value.description,
+                  tag: {
+                    name: value.tag.name,
+                    color: value.tag.color,
+                  },
+                  dueDate: value.dueDate,
+                };
+              })
+              .filter((todo) => {
+                const [, unity] = formatDistanceToNowStrict(new Date(todo.dueDate), { locale: ptBR }).split(" ");
+                const todayUnits = ["segundo", "minuto", "hora"];
+                if (
+                  todayUnits.some((tUnity) => tUnity === unity) ||
+                  todayUnits.some((tUnity) => `${tUnity}s` === unity)
+                ) {
+                  return todo;
+                } else return null;
+              });
 
-          concatParsedTodayTodos = concatParsedTodayTodos.concat(parsedTodayTodos);
+            concatParsedTodayTodos = concatParsedTodayTodos.concat(parsedTodayTodos);
+          });
         });
-      });
-      setTodayTodos(concatParsedTodayTodos);
+        setTodayTodos(concatParsedTodayTodos);
+      }
     });
 
     return () => {

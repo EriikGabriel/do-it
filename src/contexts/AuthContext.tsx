@@ -4,6 +4,7 @@ import { auth, firebase } from "../services/firebase";
 type AuthContextType = {
   user: User | undefined;
   signInWithGoogle: () => Promise<void>;
+  googleSignOut: () => Promise<void>;
 };
 
 type User = {
@@ -59,5 +60,19 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
   }
 
-  return <AuthContext.Provider value={{ user, signInWithGoogle }}>{props.children}</AuthContext.Provider>;
+  async function googleSignOut() {
+    await auth.signOut().then(
+      () => {},
+      (error) => {
+        throw new Error(`Não foi possível fazer logout da conta! Erro: "${error}"`);
+      }
+    );
+
+    localStorage.setItem("@doit:token", "");
+    window.location.reload();
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, signInWithGoogle, googleSignOut }}>{props.children}</AuthContext.Provider>
+  );
 }
