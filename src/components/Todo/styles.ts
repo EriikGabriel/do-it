@@ -10,6 +10,7 @@ export const Container = styled.div`
   > div:first-child {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     background-color: transparent;
     border-bottom: 1px solid ${(props) => props.theme.colors.shape};
     height: 50px;

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Menu } from "../../components/Menu";
 import { MenuContext } from "../../contexts/MenuContext";
-import { ProjectContext } from "../../contexts/ProjectContext";
 import { TagsList } from "./TagsList";
 
 import { TodayList } from "./TodayList";
@@ -11,7 +10,6 @@ import { TodoList } from "./TodoList";
 
 export function Home() {
   const navigate = useNavigate();
-  const { projectId } = useContext(ProjectContext);
   const { optionsName } = useContext(MenuContext);
 
   useEffect(() => {

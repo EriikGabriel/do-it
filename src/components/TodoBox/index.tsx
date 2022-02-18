@@ -98,9 +98,10 @@ export function TodoBox({ setTodoBoxType, todoId, todoProjectId }: TodoBoxProps)
     const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;
     const options = [colors.red, colors.green, colors.blue, colors.shape_dark];
     const priorityIndex = Number(priority[1]) - 1;
+
     priorityColorElement.style.backgroundColor = lighten(0.15, options[priorityIndex]);
     priorityColorElement.style.borderColor = darken(0.2, options[priorityIndex]);
-  });
+  }, [colors.red, colors.green, colors.blue, colors.shape_dark, priority]);
 
   function handleSelectPriority(e: React.MouseEvent) {
     const priorityColorElement = document.querySelector(".priority-button div") as HTMLDivElement;

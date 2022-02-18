@@ -6,7 +6,7 @@ export const Container = styled.div`
   top: 0;
   background-color: ${(props) => props.theme.colors.themeColor};
   width: 20rem;
-  height: 100vh;
+  height: 100%;
   border-right: 1px solid ${(props) => props.theme.colors.shape};
   overflow-x: hidden;
 
