@@ -2,13 +2,16 @@ import { ContainerButton, CreateProjectModal } from "./styles";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { DropdownList } from "../DropdownList";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { database } from "../../services/firebase";
 import Modal from "react-modal";
+import { ThemeContext } from "styled-components";
 
 Modal.setAppElement("#root");
 
 export function ProjectsDropdown() {
+  const { colors } = useContext(ThemeContext);
+
   const [active, setActive] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -44,7 +47,6 @@ export function ProjectsDropdown() {
         color,
       },
     });
-
     setIsOpen(false);
   }
 
@@ -56,7 +58,7 @@ export function ProjectsDropdown() {
           Projetos
         </div>
         <button type="button" onClick={() => setIsOpen(true)}>
-          <FaPlus size={15} />
+          <FaPlus size={15} fill={colors.text_body} />
         </button>
       </ContainerButton>
       {active && <DropdownList />}

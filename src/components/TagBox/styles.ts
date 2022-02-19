@@ -1,4 +1,4 @@
-import { lighten } from "polished";
+import { darken, lighten } from "polished";
 import styled from "styled-components";
 
 export const Container = styled.form`
@@ -82,6 +82,7 @@ export const Container = styled.form`
 
       button {
         background-color: transparent;
+        color: ${(props) => props.theme.colors.text_body};
         border: none;
         width: 10rem;
         height: 30px;
@@ -122,5 +123,17 @@ export const Container = styled.form`
         }
       }
     }
+  }
+
+  .tag-color-tooltip {
+    border: 1px solid ${(props) => darken(0.17, props.theme.colors.shape)} !important;
+  }
+  .tag-color-tooltip.place-top::after,
+  .tag-color-tooltip.place-bottom::after {
+    border-color: ${(props) => darken(0.17, props.theme.colors.shape)} transparent !important;
+  }
+  .tag-color-tooltip.place-right::after,
+  .tag-color-tooltip.place-left::after {
+    border-color: transparent ${(props) => darken(0.17, props.theme.colors.shape)} !important;
   }
 `;

@@ -12,6 +12,7 @@ export const Container = styled.div`
   }
 
   > button {
+    color: ${(props) => props.theme.colors.text_body};
     background-color: transparent;
     display: flex;
     align-items: center;

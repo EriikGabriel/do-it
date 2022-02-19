@@ -99,11 +99,12 @@ export default createGlobalStyle`
                 border: 1px solid ${(props) => props.theme.colors.shape};
                 background-color: ${(props) => props.theme.colors.shape};
                 border-radius: 0.25rem;
+                color: ${(props) => props.theme.colors.text_body};
             }
 
             button:last-child {
                 background-color: ${(props) => props.theme.colors.primary};
-                color: #fff;
+                color: #ffffff;
             }
         }
 
@@ -117,6 +118,7 @@ export default createGlobalStyle`
                 padding: 10px;
                 border: 1px solid ${(props) => props.theme.colors.shape};
                 background-color: ${(props) => props.theme.colors.background};
+                color: ${(props) => props.theme.colors.text_body};
             }
 
             select {
@@ -125,6 +127,7 @@ export default createGlobalStyle`
                 padding: 10px;
                 border: 1px solid ${(props) => props.theme.colors.shape};
                 background-color: ${(props) => props.theme.colors.background};
+                color: ${(props) => props.theme.colors.text_body};
             }
         }
     }
@@ -137,6 +140,7 @@ export default createGlobalStyle`
         border: 1px solid ${(props) => props.theme.colors.shape};
         -webkit-box-shadow: -1px 6px 10px -2px rgba(0, 0, 0, 0.2);
         box-shadow: -1px 6px 10px -2px rgba(0, 0, 0, 0.2);
+        color: ${(props) => props.theme.colors.text_body};
     }
 
     .tooltip-wrapper {

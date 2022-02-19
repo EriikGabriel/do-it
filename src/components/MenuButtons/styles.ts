@@ -22,6 +22,7 @@ export const Container = styled.div`
     background-color: transparent;
     display: flex;
     outline: none;
+    color: ${(props) => props.theme.colors.text_body};
     align-items: center;
     gap: 8px;
     border: none;

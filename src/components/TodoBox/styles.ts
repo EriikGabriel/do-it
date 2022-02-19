@@ -1,4 +1,4 @@
-import { darken, lighten } from "polished";
+import { darken, lighten, transparentize } from "polished";
 import styled from "styled-components";
 
 export const Container = styled.form`
@@ -7,8 +7,8 @@ export const Container = styled.form`
   > div:first-child {
     display: flex;
     align-items: center;
-    background-color: ${(props) => props.theme.colors.shape};
-    border: 1px solid ${(props) => props.theme.colors.shape_dark};
+    background-color: ${(props) => (props.theme.title === "dark" ? "#171717" : props.theme.colors.shape)};
+    border: 1px solid ${(props) => props.theme.colors.shape};
     border-radius: 0.45rem;
     height: 50px;
     width: 55rem;
@@ -32,7 +32,7 @@ export const Container = styled.form`
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 1px solid ${(props) => darken(0.2, props.theme.colors.shape_dark)};
+          border: 2px solid ${(props) => darken(0.2, props.theme.colors.shape_dark)};
           background-color: ${(props) => lighten(0.15, props.theme.colors.shape_dark)};
         }
       }
@@ -67,12 +67,19 @@ export const Container = styled.form`
 
     input[type="datetime-local"] {
       outline: none;
-      border: 1.5px solid ${(props) => props.theme.colors.shape_dark};
+      border: 1.5px solid
+        ${(props) => (props.theme.title === "light" ? props.theme.colors.shape_dark : props.theme.colors.shape)};
       background-color: transparent;
+      color: ${(props) => props.theme.title === "dark" && transparentize(0.55, props.theme.colors.text_body)};
       border-radius: 0.25rem;
       padding: 3px;
       filter: opacity(0.7);
       cursor: pointer;
+    }
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      ${(props) => props.theme.title === "dark" && "filter: invert(1)"};
+      opacity: 0.4;
     }
   }
 
@@ -89,6 +96,7 @@ export const Container = styled.form`
       padding-right: 10px;
       border: 1px solid ${(props) => props.theme.colors.shape};
       background-color: ${(props) => props.theme.colors.shape};
+      color: ${(props) => props.theme.colors.text_body};
       border-radius: 0.25rem;
     }
 
@@ -117,6 +125,7 @@ export const Container = styled.form`
         justify-content: center;
         align-items: center;
         gap: 20px;
+        color: ${(props) => props.theme.colors.text_body};
 
         &:hover {
           background-color: ${(props) => props.theme.colors.shape};
@@ -175,6 +184,7 @@ export const Container = styled.form`
         justify-content: center;
         align-items: center;
         gap: 20px;
+        color: ${(props) => props.theme.colors.text_body};
         border-bottom: 1.5px solid ${(props) => props.theme.colors.shape};
 
         &::placeholder {
@@ -195,6 +205,7 @@ export const Container = styled.form`
         p {
           width: 100px;
           text-align: left;
+          color: ${(props) => props.theme.colors.text_body};
         }
 
         &:hover {
@@ -224,6 +235,7 @@ export const Container = styled.form`
           margin-top: 10px;
           padding: 10px;
           font-size: 0.7rem;
+          color: ${(props) => props.theme.colors.text_body};
         }
       }
     }

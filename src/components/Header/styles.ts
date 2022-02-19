@@ -106,6 +106,7 @@ export const Container = styled.header`
 
       button {
         background-color: transparent;
+        color: ${(props) => props.theme.colors.text_body};
         border: none;
         width: 10rem;
         height: 30px;

@@ -6,7 +6,8 @@ import { ThemeContext } from "styled-components";
 import { Container } from "./styles";
 import { database } from "../../services/firebase";
 import { ProjectContext } from "../../contexts/ProjectContext";
-import { darken, lighten } from "polished";
+import { darken, lighten, transparentize } from "polished";
+import { formatISO } from "date-fns";
 
 type TodoBoxProps = {
   setTodoBoxType: Dispatch<SetStateAction<string>>;
@@ -99,8 +100,8 @@ export function TodoBox({ setTodoBoxType, todoId, todoProjectId }: TodoBoxProps)
     const options = [colors.red, colors.green, colors.blue, colors.shape_dark];
     const priorityIndex = Number(priority[1]) - 1;
 
-    priorityColorElement.style.backgroundColor = lighten(0.15, options[priorityIndex]);
-    priorityColorElement.style.borderColor = darken(0.2, options[priorityIndex]);
+    priorityColorElement.style.backgroundColor = transparentize(0.7, options[priorityIndex]);
+    priorityColorElement.style.borderColor = darken(0.1, options[priorityIndex]);
   }, [colors.red, colors.green, colors.blue, colors.shape_dark, priority]);
 
   function handleSelectPriority(e: React.MouseEvent) {
@@ -238,7 +239,13 @@ export function TodoBox({ setTodoBoxType, todoId, todoProjectId }: TodoBoxProps)
           }}>
           {tagName}
         </button>
-        <input type="datetime-local" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
+        <input
+          type="datetime-local"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          min={formatISO(new Date()).substring(0, 16)}
+          required
+        />
       </div>
       <div className="form-action">
         {todoId ? (
@@ -304,14 +311,22 @@ export function TodoBox({ setTodoBoxType, todoId, todoProjectId }: TodoBoxProps)
                 <button type="button" onClick={handleSelectTag} value={name} key={name}>
                   <ImPriceTag size={15} fill={color} />
                   <p>{name}</p>
-                  {name === tagName ? <BsCheck size={15} /> : <div style={{ width: "15px" }}></div>}
+                  {name === tagName ? (
+                    <BsCheck size={15} fill={colors.text_body} />
+                  ) : (
+                    <div style={{ width: "15px" }}></div>
+                  )}
                 </button>
               ))
             : searchedTags.map(({ color, name }) => (
                 <button type="button" onClick={handleSelectTag} value={name} key={name}>
                   <ImPriceTag size={15} fill={color} />
                   <p>{name}</p>
-                  {name === tagName ? <BsCheck size={15} /> : <div style={{ width: "15px" }}></div>}
+                  {name === tagName ? (
+                    <BsCheck size={15} fill={colors.text_body} />
+                  ) : (
+                    <div style={{ width: "15px" }}></div>
+                  )}
                 </button>
               ))}
 

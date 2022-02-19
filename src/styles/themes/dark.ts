@@ -2,7 +2,7 @@
 export default {
   title: "dark",
   colors: {
-    themeColor: "#000",
+    themeColor: "#282828",
     red: "#e52e4d",
     blue: "#5422fc",
     green: "#33cc95",
@@ -11,11 +11,11 @@ export default {
     primary: "#f3477a",
     secondary: "#88c2ff",
 
-    text_title: "#fff",
-    text_body: "#fff",
+    text_title: "#eeeeee",
+    text_body: "#eeeeee",
 
-    background: "#2d2d2e",
-    shape: "#000000",
-    shape_dark: "#adadad",
+    background: "#1f1f1f",
+    shape: "#413f3f",
+    shape_dark: "#757575",
   },
 };

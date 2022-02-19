@@ -1,5 +1,5 @@
 import React, { Dispatch, useContext, useEffect, useState } from "react";
-import { darken, lighten } from "polished";
+import { darken, lighten, opacify, transparentize } from "polished";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import { ThemeContext } from "styled-components";
 import { Container, DeleteTodoModal } from "./styles";
@@ -107,8 +107,8 @@ export function Todo({
             <button type="button" className="todo-priority-button">
               <div
                 style={{
-                  backgroundColor: lighten(0.15, priorityColor),
-                  border: `1px solid ${darken(0.2, priorityColor)}`,
+                  backgroundColor: transparentize(0.7, priorityColor),
+                  border: `2px solid ${darken(0.1, priorityColor)}`,
                 }}
                 onMouseEnter={() => setCheckIsHover(true)}
                 onMouseLeave={() => setCheckIsHover(false)}

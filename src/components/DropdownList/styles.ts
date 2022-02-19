@@ -1,3 +1,4 @@
+import { darken } from "polished";
 import Modal from "react-modal";
 import styled from "styled-components";
 
@@ -16,6 +17,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     border: none;
+    color: ${(props) => props.theme.colors.text_body};
     width: 100%;
     text-align: left;
     padding: 10px;
@@ -82,6 +84,7 @@ export const Container = styled.div`
         justify-content: space-evenly;
         align-items: center;
         gap: 20px;
+        color: ${(props) => props.theme.colors.text_body};
 
         p {
           text-align: left;
@@ -97,6 +100,18 @@ export const Container = styled.div`
         }
       }
     }
+  }
+
+  .more-options-tooltip {
+    border: 1px solid ${(props) => darken(0.17, props.theme.colors.shape)} !important;
+  }
+  .more-options-tooltip.place-top::after,
+  .more-options-tooltip.place-bottom::after {
+    border-color: ${(props) => darken(0.17, props.theme.colors.shape)} transparent !important;
+  }
+  .more-options-tooltip.place-right::after,
+  .more-options-tooltip.place-left::after {
+    border-color: transparent ${(props) => darken(0.17, props.theme.colors.shape)} !important;
   }
 `;
 

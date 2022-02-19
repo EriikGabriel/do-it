@@ -10,14 +10,6 @@ type TagBoxProps = {
   tagId?: string;
 };
 
-type FirebaseTags = Record<
-  string,
-  {
-    name: string;
-    color: string;
-  }
->;
-
 type TagsType = {
   name: string;
   color: string;
