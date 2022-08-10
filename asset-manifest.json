@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/do-it/static/js/main.20747d50.js",
+    "static/media/today.svg": "/do-it/static/media/today.3512d84b00c4766f08e0df961bd65303.svg",
+    "static/media/todo.svg": "/do-it/static/media/todo.b4598f1e347bbf194f80271ac38d089c.svg",
+    "index.html": "/do-it/index.html",
+    "main.20747d50.js.map": "/do-it/static/js/main.20747d50.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.20747d50.js"
+  ]
+}
