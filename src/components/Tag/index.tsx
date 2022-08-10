@@ -1,7 +1,7 @@
 import { ImPriceTag } from "react-icons/im";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import { Container, DeleteTagModal } from "./styles";
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useState } from "react";
 import { BiInfoCircle, BiX } from "react-icons/bi";
 import { database } from "../../services/firebase";
 
@@ -11,19 +11,6 @@ type TagProps = {
   color: string;
   setEditId: Dispatch<React.SetStateAction<string>>;
   setTagBoxType: Dispatch<React.SetStateAction<string>>;
-};
-
-type FirebaseTags = Record<
-  string,
-  {
-    name: string;
-    color: string;
-  }
->;
-
-type TagsType = {
-  name: string;
-  color: string;
 };
 
 type FirebaseTodos = Record<
@@ -53,8 +40,6 @@ type TodoType = {
 
 export function Tag({ name, color, id, setEditId, setTagBoxType }: TagProps) {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-
-  const [tagTodos, setTagTodos] = useState<TodoType[]>([]);
 
   function handleDeleteTag() {
     const firebaseUserKey = localStorage.getItem("@doit:token");

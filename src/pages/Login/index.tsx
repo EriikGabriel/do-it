@@ -14,12 +14,6 @@ type FirebaseUser = Record<
   }
 >;
 
-type UsersType = {
-  googleId: string;
-  projects: string;
-  tags: string;
-};
-
 export function Login() {
   const { user, signInWithGoogle } = useAuth();
 

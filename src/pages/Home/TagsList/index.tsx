@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { BsPlusCircle, BsPlusCircleFill } from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 import { ThemeContext } from "styled-components";
 import { Tag } from "../../../components/Tag";
 import { TagBox } from "../../../components/TagBox";

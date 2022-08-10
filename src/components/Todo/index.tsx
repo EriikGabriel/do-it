@@ -1,5 +1,5 @@
 import React, { Dispatch, useContext, useEffect, useState } from "react";
-import { darken, lighten, opacify, transparentize } from "polished";
+import { darken, transparentize } from "polished";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import { ThemeContext } from "styled-components";
 import { Container, DeleteTodoModal } from "./styles";

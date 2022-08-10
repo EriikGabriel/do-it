@@ -18,7 +18,7 @@ type TagsType = {
 export function TagBox({ tagId, setTagBoxType }: TagBoxProps) {
   const { colors } = useContext(ThemeContext);
 
-  const [tags, setTags] = useState<TagsType[]>([]);
+  const [, setTags] = useState<TagsType[]>([]);
 
   const colorValues = ["rgb(178, 60, 253)", "rgb(0, 183, 74)", "rgb(255, 169, 0)", "rgb(57, 192, 237)"];
   const index = Math.floor(Math.random() * colorValues.length);

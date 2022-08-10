@@ -7,10 +7,9 @@ import ReactTooltip from "react-tooltip";
 import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 import { BsDoorOpen } from "react-icons/bs";
-import {} from "react-icons/md";
 import ReactSwitch from "react-switch";
 import { ThemeAppContext } from "../../contexts/ThemeAppContext";
-import { lighten, shade } from "polished";
+import { lighten } from "polished";
 
 export function Header() {
   const { user, googleSignOut } = useAuth();
