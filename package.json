@@ -1,5 +1,5 @@
 {
-  "homepage": "https://EriikGabriel.github.io/do-it",
+  "homepage": "./build",
   "name": "do-it",
   "version": "0.1.0",
   "private": true,
